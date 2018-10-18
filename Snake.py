@@ -7,6 +7,7 @@ class Snake:
         self.speed = 5
         self.height, self.width = 25,25
         self.direction = 'west'
+        self.score = 0
 
     def move(self, direction):
         if direction == 'east':

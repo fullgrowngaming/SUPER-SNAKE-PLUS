@@ -28,6 +28,6 @@ while running:
         snake.speed += 0.01
 
     window.draw_snake(snake)
-    window.display_text(snake.speed, GameWindow.red, 50,50)
+    window.display_text(f'Score: {snake.score}', GameWindow.red, 50,50)
     window.display()
     clock.tick(60)
