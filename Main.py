@@ -1,8 +1,8 @@
 import pygame, time, sys, random
+pygame.init()
 from GameWindow import GameWindow
 from Snake import Snake
 
-pygame.init()
 window = GameWindow(800, 600)
 snake = Snake()
 clock = pygame.time.Clock()
@@ -24,6 +24,10 @@ while running:
         snake.move('north')
     if pressed[pygame.K_DOWN] and snake.head_y < window.res_y - snake.height:
         snake.move('south')
+    if pressed[pygame.K_SPACE]:
+        snake.speed += 0.01
 
     window.draw_snake(snake)
+    window.display_text(snake.speed, GameWindow.red, 50,50)
+    window.display()
     clock.tick(60)
