@@ -1,34 +1,45 @@
 import pygame, time, sys, random
+pygame.init()
 from GameWindow import GameWindow
 from Snake import Snake
 
-pygame.init()
 
-window = GameWindow(800, 600)
-snake = Snake()
-clock = pygame.time.Clock()
-running = True
+if __name__ == "__main__":
+    window = GameWindow(800, 600)
+    snake = Snake()
+    clock = pygame.time.Clock()
+    running = True
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
 
-    pressed = pygame.key.get_pressed()
+        #handles keypresses and moving the snake
+        pressed = pygame.key.get_pressed()
+        if pressed[pygame.K_LEFT]:
+            snake.direction = 'west'
+        elif pressed[pygame.K_RIGHT]:
+            snake.direction = 'east'
+        elif pressed[pygame.K_UP]:
+            snake.direction = 'north'
+        elif pressed[pygame.K_DOWN]:
+            snake.direction = 'south'
 
-    if pressed[pygame.K_LEFT] and snake.head_x > 0:
-        snake.move('west')
-    if pressed[pygame.K_RIGHT] and snake.head_x < window.res_x - snake.width:
-        snake.move('east')
-    if pressed[pygame.K_UP] and snake.head_y > 0:
-        snake.move('north')
-    if pressed[pygame.K_DOWN] and snake.head_y < window.res_y - snake.height:
-        snake.move('south')
-    if pressed[pygame.K_SPACE]:
-        snake.speed += 0.5
+        snake.move()
 
-    window.draw_snake(snake)
-    window.display_text(f'Score: {snake.score}', GameWindow.red, 50,50)
-    window.display()
-    clock.tick(60)
+        #handles screen boundaries
+        if snake.head_x < 0:
+            snake.head_x = 0
+        if snake.head_x > window.res_x - snake.width:
+            snake.head_x = window.res_x - snake.width
+        if snake.head_y < 0:
+            snake.head_y = 0
+        if snake.head_y > window.res_y - snake.height:
+            snake.head_y = window.res_y - snake.height
+
+        window.draw_snake(snake)
+        window.display_text(f'{snake.head_x, snake.head_y}', GameWindow.red, 50,50)
+        window.display()
+        clock.tick(60)

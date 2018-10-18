@@ -6,16 +6,17 @@ class Snake:
         self.head_x, self.head_y = 500,500
         self.speed = 5
         self.height, self.width = 25,25
-        self.direction = 'west'
+        self.direction = None
+        self.moving = True
         self.score = 0
 
-    def move(self, direction):
-        if direction == 'east':
+    def move(self):
+        if self.direction == 'east':
             self.head_x += self.speed
-        if direction == 'west':
+        if self.direction == 'west':
             self.head_x -= self.speed
-        if direction == 'north':
+        if self.direction == 'north':
             self.head_y -= self.speed
-        if direction == 'south':
+        if self.direction == 'south':
             self.head_y += self.speed
 
