@@ -16,13 +16,13 @@ while running:
 
     pressed = pygame.key.get_pressed()
 
-    if pressed[pygame.K_LEFT]:
+    if pressed[pygame.K_LEFT] and snake.head_x > 0:
         snake.move('west')
-    if pressed[pygame.K_RIGHT]:
+    if pressed[pygame.K_RIGHT] and snake.head_x < window.res_x - snake.width:
         snake.move('east')
-    if pressed[pygame.K_UP]:
+    if pressed[pygame.K_UP] and snake.head_y > 0:
         snake.move('north')
-    if pressed[pygame.K_DOWN]:
+    if pressed[pygame.K_DOWN] and snake.head_y < window.res_y - snake.height:
         snake.move('south')
 
     window.draw_snake(snake)

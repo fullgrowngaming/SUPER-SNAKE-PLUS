@@ -10,8 +10,8 @@ class GameWindow:
     blue =        (0,0,255)
 
     def __init__(self, window_res_x, window_res_y):
-        self.window_res_x = window_res_x
-        self.window_res_y = window_res_y
+        self.res_x = window_res_x
+        self.res_y = window_res_y
         self.window = pygame.display.set_mode((window_res_x, window_res_y))
         self.window.fill(GameWindow.white)
         pygame.display.set_caption('SUPER SNAKE PLUS')
@@ -22,7 +22,7 @@ class GameWindow:
 
     def draw_snake(self, Snake):
         self.window.fill(GameWindow.white)
-        pygame.draw.rect(self.window, GameWindow.green, [Snake.head_x, Snake.head_y, 25, 25])
+        pygame.draw.rect(self.window, GameWindow.green, [Snake.head_x, Snake.head_y, Snake.height, Snake.width])
         self.display()
 
     def display_text(self, msg, color, pos_x, pos_y):
