@@ -3,7 +3,7 @@ from Snake import Snake
 
 class GameWindow:
     '''Creates and maintains the game window'''
-    white = (255,255,255)
+    white =       (255,255,255)
     black = (0,0,0)
     red   = (255,0,0)
     green = (0,255,0)
@@ -22,8 +22,11 @@ class GameWindow:
         pygame.display.update()
 
     def draw_snake(self, Snake):
-        self.window.fill(GameWindow.white)
         pygame.draw.rect(self.window, GameWindow.green, [Snake.head_x, Snake.head_y, Snake.height, Snake.width])
+
+    def draw_collectible(self, Collectible):
+        pygame.draw.rect(self.window, GameWindow.red, [Collectible.loc_x, Collectible.loc_y,
+                                                       Collectible.height, Collectible.width])
 
     def display_text(self, msg, color, pos_x, pos_y):
         text = GameWindow.font.render(str(msg), True, GameWindow.red)
