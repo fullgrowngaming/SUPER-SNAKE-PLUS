@@ -22,7 +22,10 @@ class GameWindow:
         pygame.display.update()
 
     def draw_snake(self, Snake):
-        pygame.draw.rect(self.window, GameWindow.green, [Snake.head_x, Snake.head_y, Snake.height, Snake.width])
+        pygame.draw.rect(self.window, GameWindow.green, [Snake.head[0], Snake.head[1], Snake.height, Snake.width])
+        print(Snake.segments)
+        for segment in Snake.segments:
+            pygame.draw.rect(self.window, GameWindow.green,[segment[0], segment[1], Snake.height, Snake.width])
 
     def draw_collectible(self, Collectible):
         pygame.draw.rect(self.window, GameWindow.red, [Collectible.loc_x, Collectible.loc_y,

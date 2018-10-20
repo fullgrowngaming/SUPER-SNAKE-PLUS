@@ -24,7 +24,7 @@ if __name__ == "__main__":
         if random.randint(0,120) == 1: #should generate 1 new collectible every 2 seconds???
             collectibles.append(Collectible())
 
-        #handles keypresses and moving the snake
+        #handles keypresses and moves the snake
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_LEFT] and snake.direction != 'east':
             snake.direction = 'west'
@@ -34,24 +34,26 @@ if __name__ == "__main__":
             snake.direction = 'north'
         elif pressed[pygame.K_DOWN] and snake.direction != 'north':
             snake.direction = 'south'
-
-        #move snake and handle screen boundaries (wrap-around)
         snake.move()
-        if snake.head_x <= 0 - snake.width:
-            snake.head_x = window.res_x
-        if snake.head_x > window.res_x:
-            snake.head_x = 0
-        if snake.head_y <= 0 - snake.height:
-            snake.head_y = window.res_y
-        if snake.head_y > window.res_y:
-            snake.head_y = 0
+
+
+        #handle screen boundaries (wrap-around)
+        if snake.head[0] <= 0 - snake.width:
+            snake.head[0] = window.res_x
+        if snake.head[0] > window.res_x:
+            snake.head[0] = 0
+        if snake.head[1] <= 0 - snake.height:
+            snake.head[1] = window.res_y
+        if snake.head[1] > window.res_y:
+            snake.head[1] = 0
 
         #handles collectibles
         for collectible in collectibles:
             collectible.exist_timer += 1
-            if collectible.exist_timer >= 300:
+            if collectible.exist_timer >= 600:
                 collectibles.remove(collectible)
-            if (snake.head_x < collectible.loc_x < snake.head_x + snake.width) and (snake.head_y < collectible.loc_y < snake.head_y + snake.height):
+            if (snake.head[0] < collectible.loc_x < snake.head[0] + snake.width) and (snake.head[1] < collectible.loc_y < snake.head[1] + snake.height):
+                snake.lengthen() #[collectible.loc_x, collectible.loc_y]
                 collectibles.remove(collectible)
                 snake.score += 1
 
@@ -62,5 +64,6 @@ if __name__ == "__main__":
         window.display_text(f'{snake.score}', GameWindow.red, 50,50)
 
         #update screen and tick
+        snake.update_segments()
         window.display()
         clock.tick(60)
